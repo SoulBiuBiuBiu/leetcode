@@ -1,8 +1,7 @@
 package org.barry.algorithm.offer2;
 
 /**
- * 〈一句话功能简述〉
- * 〈功能详细描述〉
+ * P013
  *
  * @author Barry
  * @since 2022/1/10 10:49
