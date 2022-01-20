@@ -18,7 +18,7 @@ public class P036 {
         Stack<Integer> stack = new Stack<>();
         for (int i = 0; i < tokens.length; i++) {
             String token = tokens[i];
-            if (Character.isDigit(token.charAt(0)) || (token.charAt(0) == '-' && token.length() != 1)) {
+            if (Character.isDigit(token.charAt(0)) || (token.charAt(0) == '-' && token.length() != 1)){
                 stack.push(Integer.parseInt(token));
             } else if ("+".equals(token)) {
                 Integer i1 = stack.pop();
