@@ -25,13 +25,13 @@ public class P056 {
             }
         });
         List<List<Integer>> list = new ArrayList<>();
-        list.add(new ArrayList<>(List.of(intervals[0][0], intervals[0][1])));
+        list.add(new ArrayList<>(Arrays.asList(intervals[0][0], intervals[0][1])));
         for (int i = 1; i < intervals.length; i++) {
             List<Integer> pre = list.get(list.size() - 1);
             if (intervals[i][0] <= pre.get(1)) {
                 pre.set(1, Math.max(intervals[i][1], pre.get(1)));
             } else {
-                list.add(new ArrayList<>(List.of(intervals[i][0], intervals[i][1])));
+                list.add(new ArrayList<>(Arrays.asList(intervals[i][0], intervals[i][1])));
             }
         }
 

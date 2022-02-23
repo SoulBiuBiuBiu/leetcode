@@ -27,7 +27,7 @@ public class P015 {
             int right = length - 1;
             while (left < right) {
                 if (nums[left] + nums[right] == target) {
-                    ans.add(List.of(nums[i], nums[left], nums[right]));
+                    ans.add(Arrays.asList(nums[i], nums[left], nums[right]));
                     left++;
                     right--;
                     while (left < right && nums[left] == nums[left - 1]) left++;
