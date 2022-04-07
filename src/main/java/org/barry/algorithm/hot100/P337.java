@@ -11,18 +11,20 @@ import org.barry.algorithm.TreeNode;
  */
 public class P337 {
     public int rob(TreeNode root) {
-        int[] rootStatus = dfs(root);
-        return Math.max(rootStatus[0], rootStatus[1]);
+        int[] dfs = dfs(root);
+        return Math.max(dfs[0], dfs[1]);
     }
 
-    public int[] dfs(TreeNode node) {
-        if (node == null) {
+    int[] dfs(TreeNode root) {
+        if (root == null) {
             return new int[2];
         }
-        int[] l = dfs(node.left);
-        int[] r = dfs(node.right);
-        int selected = node.val + l[1] + r[1];
-        int notSelected = Math.max(l[0], l[1]) + Math.max(r[0], r[1]);
-        return new int[]{selected, notSelected};
+        int[] res = new int[2];
+        int[] left = dfs(root.left);
+        int[] right = dfs(root.right);
+        res[0] = root.val + left[1] + right[1];
+        res[1] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
+        return res;
     }
+
 }
