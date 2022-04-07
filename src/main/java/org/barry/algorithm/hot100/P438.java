@@ -21,13 +21,11 @@ public class P438 {
 
         int[] pCnt = new int[26];
         int[] sCnt = new int[26];
-
         for (int i = 0; i < m; i++) {
             pCnt[p.charAt(i) - 'a']++;
         }
 
         int left = 0;
-
         for (int right = 0; right < n; right++) {
             int curRight = s.charAt(right) - 'a';
             sCnt[curRight]++;
@@ -37,7 +35,6 @@ public class P438 {
                 sCnt[curLeft]--;
                 left++;
             }
-
             if (right - left + 1 == m) {
                 res.add(left);
             }
