@@ -12,36 +12,33 @@ import java.util.PriorityQueue;
  * @since 2022/3/1 18:17
  */
 public class P253 {
+    public static void main(String[] args) {
+        new P253().minMeetingRooms(new int[][]{{13, 15}, {1, 13}});
+    }
+
     public int minMeetingRooms(int[][] intervals) {
-        int len = intervals.length;
-
-        if (len == 0) {
-            return 0;
-        }
-
-        PriorityQueue<Integer> minHeap = new PriorityQueue<>(len, new Comparator<Integer>() {
-            @Override
-            public int compare(Integer a, Integer b) {
-                return a-b;
-            }
-        });
-
         Arrays.sort(intervals, new Comparator<int[]>() {
             @Override
             public int compare(int[] o1, int[] o2) {
-                return o1[0]-o2[0];
+                if (o1[0] == o2[0]) {
+                    return o1[1] - o2[1];
+                }
+                return o1[0] - o2[0];
             }
         });
 
-        minHeap.add(intervals[0][1]);
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>();
 
-        for (int i = 1; i < len; i++) {
-            if (intervals[i][0] >= minHeap.peek()) {
-                minHeap.poll();
+        int max = 0;
+
+        for (int i = 0; i < intervals.length; i++) {
+            int curStart = intervals[i][0];
+            while (!priorityQueue.isEmpty() && priorityQueue.peek() <= curStart) {
+                priorityQueue.poll();
             }
-            minHeap.add(intervals[i][1]);
+            priorityQueue.add(intervals[i][1]);
+            max = Math.max(max, priorityQueue.size());
         }
-
-        return minHeap.size();
+        return max;
     }
 }
