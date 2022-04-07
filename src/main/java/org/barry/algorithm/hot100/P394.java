@@ -1,6 +1,6 @@
 package org.barry.algorithm.hot100;
 
-import java.util.LinkedList;
+import java.util.Stack;
 
 /**
  * 〈一句话功能简述〉
@@ -10,33 +10,37 @@ import java.util.LinkedList;
  * @since 2022/3/11 11:32
  */
 public class P394 {
+    public static void main(String[] args) {
+        new P394().decodeString("3[a]2[bc]");
+    }
 
     public String decodeString(String s) {
-        StringBuilder sb = new StringBuilder();
-        int multi = 0;
-        LinkedList<Integer> stack_multi = new LinkedList<>();
-        LinkedList<String> stack_res = new LinkedList<>();
+        Stack<String> stringStack = new Stack<>();
+        Stack<Integer> integerStack = new Stack<>();
 
-        for (Character c : s.toCharArray()) {
-            if (c == '[') {
-                stack_multi.addLast(multi);
-                stack_res.addLast(sb.toString());
-                multi = 0;
+        StringBuilder sb = new StringBuilder();
+        StringBuilder isb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isDigit(s.charAt(i))) {
+                isb.append(s.charAt(i));
+            } else if (Character.isLetter(s.charAt(i))) {
+                sb.append(s.charAt(i));
+            } else if (s.charAt(i) == '[') {
+                Integer num = Integer.valueOf(isb.toString());
+                isb = new StringBuilder();
+                integerStack.push(num);
+                stringStack.push(sb.toString());
                 sb = new StringBuilder();
-            } else if (c == ']') {
+            } else if (s.charAt(i) == ']') {
+                Integer num = integerStack.pop();
                 StringBuilder tmp = new StringBuilder();
-                int times = stack_multi.removeLast();
-                for (int i = 0; i < times; i++) {
+                while (num != 0) {
+                    num--;
                     tmp.append(sb);
                 }
-                sb = new StringBuilder(stack_res.removeLast() + tmp);
-            } else if (Character.isDigit(c)) {
-                multi = multi * 10 + (c - '0');
-            } else {
-                sb.append(c);
+                sb = new StringBuilder(stringStack.pop() + tmp);
             }
         }
         return sb.toString();
     }
-
 }
