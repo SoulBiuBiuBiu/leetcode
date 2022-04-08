@@ -12,19 +12,20 @@ import java.util.Map;
  */
 public class P560 {
     public int subarraySum(int[] nums, int k) {
-        Map<Integer, Integer> preSumMap = new HashMap<>();
-        preSumMap.put(0, 1);
-        int preSum = 0;
-        int count = 0;
-        for (int num : nums) {
-            preSum += num;
 
-            if (preSumMap.containsKey(preSum - k)) {
-                count += preSumMap.get(preSum - k);
+        Map<Integer, Integer> map = new HashMap<>();
+        int curSum = 0;
+        int res = 0;
+        map.put(0, 1);
+        for (int i = 0; i < nums.length; i++) {
+            curSum += nums[i];
+            if (map.containsKey(curSum - k)) {
+                res += map.get(curSum - k);
             }
+            map.put(curSum, map.getOrDefault(curSum, 0) + 1);
 
-            preSumMap.put(preSum, preSumMap.getOrDefault(preSum, 0) + 1);
         }
-        return count;
+        return res;
+
     }
 }
