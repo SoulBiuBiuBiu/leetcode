@@ -1,8 +1,5 @@
 package org.barry.algorithm.hot100;
 
-import java.util.Arrays;
-import java.util.stream.Stream;
-
 /**
  * 〈一句话功能简述〉
  * 〈功能详细描述〉
@@ -11,21 +8,23 @@ import java.util.stream.Stream;
  * @since 2022/3/16 10:17
  */
 public class P621 {
+    public static void main(String[] args) {
+        new P621().leastInterval(new char[]{'A', 'A', 'A', 'B', 'B', 'B' }, 2);
+    }
+
     public int leastInterval(char[] tasks, int n) {
-        int[] chars = new int[26];
-        int max=0;
+        int max = 0;
+        int[] cnt = new int[26];
 
-        for (char task : tasks) {
-            max = Math.max(++chars[task - 'A'], max);
+        for (int i = 0; i < tasks.length; i++) {
+            cnt[tasks[i] - 'A']++;
+            max = Math.max(cnt[tasks[i] - 'A'], max);
         }
-
-        int res = (max - 1) * (n + 1);
+        int min = ((max - 1) * (n + 1)) + 1;
         for (int i = 0; i < 26; i++) {
-            if (chars[i] == max) {
-                res++;
-            }
+            if (cnt[i] == max) min++;
         }
-
-        return Math.max(res, tasks.length);
+        min--;
+        return Math.max(min, tasks.length);
     }
 }
