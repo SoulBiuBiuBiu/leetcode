@@ -9,19 +9,22 @@ package org.barry.algorithm.hot100;
  */
 public class P647 {
     public int countSubstrings(String s) {
-        //dp[i][j] 表示字符串s在[i,j]区间的子串是否是一个回文串。
-        //dp[i]][j]
-        boolean[][] dp = new boolean[s.length()][s.length()];
-
         int ans = 0;
-        for (int j = 0; j < s.length(); j++) {
-            for (int i = 0; i <= j; i++) {
-                if (s.charAt(i) == s.charAt(j) && (j - i < 2 || dp[i + 1][j - 1])) {
-                    ans++;
-                    dp[i][j] = true;
-                }
-            }
+        for (int i = 0; i < s.length(); i++) {
+            ans += isT(s, i, i);
+            ans += isT(s, i, i + 1);
         }
         return ans;
     }
+
+    int isT(String s, int left, int right) {
+        int cnt = 0;
+        while (left > -1 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            left--;
+            right++;
+            cnt++;
+        }
+        return cnt;
+    }
+
 }
