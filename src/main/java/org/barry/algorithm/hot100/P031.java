@@ -1,5 +1,7 @@
 package org.barry.algorithm.hot100;
 
+import java.util.Arrays;
+
 /**
  * 〈一句话功能简述〉
  * 〈功能详细描述〉
@@ -8,35 +10,32 @@ package org.barry.algorithm.hot100;
  * @since 2022/2/10 14:45
  */
 public class P031 {
+    public static void main(String[] args) {
+        new P031().nextPermutation(new int[]{1, 3, 2});
+    }
+
     public void nextPermutation(int[] nums) {
-        //排列 回溯算法 遍历所有可能
-        int i=nums.length-2;
-        while (i >= 0 && nums[i] >= nums[i + 1]) {
-            i--;
-        }
-
-        if (i >= 0) {
-            int j=nums.length-1;
-            while (j >= 0 && nums[i] >= nums[j]) {
-                j--;
+        int n = nums.length;
+        int maxIndex = 0;
+        for (int i = n - 1; i > 0; i--) {
+            if (nums[i] > nums[i - 1]) {
+                for (int j = n - 1; j >= i; j--) {
+                    if (nums[j] > nums[i - 1]) {
+                        swap(nums, j, i - 1);
+                        break;
+                    }
+                }
+                Arrays.sort(nums, i, n);
+                return;
             }
-            swap(nums,i,j);
         }
-        reverse(nums,i+1);
+        Arrays.sort(nums);
+        return;
     }
 
-    private void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
-    }
-
-    private void reverse(int[] nums, int start) {
-        int left = start, right = nums.length - 1;
-        while (left < right) {
-            swap(nums, left, right);
-            left++;
-            right--;
-        }
+    private void swap(int[] nums, int n, int maxIndex) {
+        int tmp = nums[maxIndex];
+        nums[maxIndex] = nums[n];
+        nums[n] = tmp;
     }
 }
