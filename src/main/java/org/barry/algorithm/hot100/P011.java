@@ -8,19 +8,23 @@ package org.barry.algorithm.hot100;
  * @since 2022/2/9 15:33
  */
 public class P011 {
+    public static void main(String[] args) {
+        new P011().maxArea(new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7});
+    }
+
     public int maxArea(int[] height) {
-        // width * height;
-        // height  由 左右两侧最高的取min
-        int left = 0, right = height.length - 1;
-        int res = 0;
+        int length = height.length;
+        int left = 0, right = length - 1;
+        int maxAres = 0;
+
         while (left <= right) {
-            res = Math.max(Math.min(height[left], height[right]) * (right - left), res);
+            maxAres = Math.max(maxAres, Math.min(height[left], height[right]) * (right - left));
             if (height[left] < height[right]) {
                 left++;
             } else {
                 right--;
             }
         }
-        return res;
+        return maxAres;
     }
 }
