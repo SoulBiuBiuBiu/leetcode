@@ -4,34 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class P022 {
-    int leftCnt = 0, rightCnt = 0;
-    StringBuilder sb = new StringBuilder();
 
     public List<String> generateParenthesis(int n) {
         List<String> ans = new ArrayList<>();
-        backtrack(ans, n, 0);
+        StringBuilder sb = new StringBuilder();
+        backtraking(ans, sb, n, n);
         return ans;
-
     }
 
-    private void backtrack(List<String> ans, int n, int cur) {
-        if (cur == n * 2) {
+    private void backtraking(List<String> ans, StringBuilder sb, int left, int right) {
+        if (right == 0) {
             ans.add(sb.toString());
-            return;
         }
-        if (leftCnt < n) {
+        if (left > 0) {
             sb.append("(");
-            leftCnt++;
-            backtrack(ans, n, cur + 1);
-            leftCnt--;
+            backtraking(ans, sb, left - 1, right);
             sb.deleteCharAt(sb.length() - 1);
         }
-        if (rightCnt < n && rightCnt < leftCnt) {
+        if (right > left) {
             sb.append(")");
-            rightCnt++;
-            backtrack(ans, n, cur + 1);
-            rightCnt--;
+            backtraking(ans, sb, left, right - 1);
             sb.deleteCharAt(sb.length() - 1);
         }
     }
+
 }
